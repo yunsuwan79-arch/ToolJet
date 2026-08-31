@@ -157,6 +157,7 @@ export const addSupportCSAData = (field, data) => {
     .click({ force: true })
     .clearAndTypeOnCodeMirror(data);
   cy.get('[data-cy="event-label"]').click({ force: true })
+  cy.wait("@events");
 };
 
 export const selectSupportCSAData = (option) => {
@@ -187,6 +188,10 @@ export const changeEventType = (event, eventIndex = 0) => {
   cy.wait("@events");
 };
 
+
+export const addEventWithAlert = (event, message, isWait = true) => {
+  addMultiEventsWithAlert([{ event, message }], isWait);
+};
 
 export const addMultiEventsWithAlert = (events, isWait = true) => {
   events.forEach((eventObj, index) => {
