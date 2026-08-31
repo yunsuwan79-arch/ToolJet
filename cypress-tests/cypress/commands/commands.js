@@ -201,7 +201,9 @@ Cypress.Commands.add(
       // substrings, so any char absent from every alternative is silently
       // dropped — previously `custom-btn` tokenized to ["custom","btn"] and was
       // typed as "custombtn". `-` is placed last in the class so it's a literal.
-      const regex = /(\{|\}|\(|\)|\[|\]|,|:|;|=>|\*|"[^"]*"|'[^']*'|[a-zA-Z0-9._-]+|\s+)/g;
+      // {{/}}/(( must come first (alternation is first-match-wins), or a
+      // {{...}} expression types as scrambled single braces, not one pair.
+      const regex = /(\{\{|\}\}|\{|\}|\(\(|\(|\)|\[|\]|,|:|;|=>|\*|"[^"]*"|'[^']*'|[a-zA-Z0-9._-]+|\s+)/g;
       let prefix = "";
       return (
         value.match(regex)?.reduce((acc, part) => {
